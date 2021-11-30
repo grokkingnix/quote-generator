@@ -5,6 +5,11 @@
   --br: 10px;
   --quote-background-color: 255.255.255;
   --quote-box-shadow: 0, 0, 0;
+  --button-color: #fff;
+  --button-background-color: #333;
+  --button-box-shadow: 121, 121, 121;
+  --btn-active-box-shadow: 255, 255, 255;
+  --twitter-btn-hover: #38a1f3;
 }
 html {
   box-sizing: border-box;
@@ -45,6 +50,45 @@ body {
   font-size: 2rem;
   font-weight: 400;
   font-style: italic;
+}
+
+.button-container {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  cursor: pointer;
+  font-size: 1.2rem;
+  height: 1.5rem;
+  border: none;
+  border-radius: 10px;
+  color: var(--button-color);
+  background: var(--button-background-color);
+  outline: none;
+  padding: 1rem;
+  box-shadow: 0 0.3rem rgba(var(--button-box-shadow), 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+button:active {
+  transform: translate(0, 0.3rem);
+  box-shadow: 0 0.1rem rgba(var(--btn-active-box-shadow), 0.65);
+}
+
+.twitter-button:hover {
+  color: var(--twitter-btn-hover);
+}
+
+.fa-twitter {
+  font-size: 1.5rem;
 }
 
 @media screen and (max-width: 1000px) {
