@@ -4,23 +4,19 @@ const quoteText = document.getElementById("quote");
 const authorText = document.getElementById("author");
 const twitterBtn = document.getElementById("twitter");
 const newQuoteBtn = document.getElementById("new-quote");
+const loader = document.getElementById("loader");
 
 let apiQuotes = [];
 
-// Get quotes from API
-const getQuotes = async () => {
-  const apiUrl = "https://type.fit/api/quotes";
-  try {
-    const response = await fetch(apiUrl);
-    apiQuotes = await response.json();
-    newQuote();
-  } catch (error) {
-    console.log(error);
-  }
+// Toggle loading spinner
+const toggleLoadingSpinner = (state) => {
+  loader.hidden = state === "show" ? false : true;
+  quoteContainer.hidden = state === "show" ? true : false;
 };
 
 // Show new Quote
 const newQuote = () => {
+  toggleLoadingSpinner("show");
   // Pick a random quote from apiQuotes array
   const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
 
@@ -33,6 +29,20 @@ const newQuote = () => {
   // Send data to DOM
   authorText.textContent = defineAuthorName(quote.author);
   quoteText.textContent = quote.text;
+  toggleLoadingSpinner("hide");
+};
+
+// Get quotes from API
+const getQuotes = async () => {
+  toggleLoadingSpinner("show");
+  const apiUrl = "https://type.fit/api/quotes";
+  try {
+    const response = await fetch(apiUrl);
+    apiQuotes = await response.json();
+    newQuote();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // Tweet quote
