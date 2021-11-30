@@ -7,6 +7,18 @@ const newQuoteBtn = document.getElementById("new-quote");
 
 let apiQuotes = [];
 
+// Get quotes from API
+const getQuotes = async () => {
+  const apiUrl = "https://type.fit/api/quotes";
+  try {
+    const response = await fetch(apiUrl);
+    apiQuotes = await response.json();
+    newQuote();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // Show new Quote
 const newQuote = () => {
   // Pick a random quote from apiQuotes array
@@ -23,17 +35,16 @@ const newQuote = () => {
   quoteText.textContent = quote.text;
 };
 
-// Get quotes from API
-const getQuotes = async () => {
-  const apiUrl = "https://type.fit/api/quotes";
-  try {
-    const response = await fetch(apiUrl);
-    apiQuotes = await response.json();
-    newQuote();
-  } catch (error) {
-    console.log(error);
-  }
+// Tweet quote
+
+const tweetQuote = () => {
+  const twitterUrl = `https://twitter.com/intent/tweet?text=${quoteText.textContent} - ${authorText.textContent}`;
+  window.open(twitterUrl, "_blank");
 };
+
+// Event Listeners
+newQuoteBtn.addEventListener("click", newQuote);
+twitterBtn.addEventListener("click", tweetQuote);
 
 // Run the getQuotes func on load
 getQuotes();
